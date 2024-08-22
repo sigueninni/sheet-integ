@@ -119,6 +119,7 @@ const Prospects = () => {
             {
                 header: 'CV',
                 accessorKey: 'cv_link',
+                enableClickToCopy: true,
                 size: 300,
             },
             {
