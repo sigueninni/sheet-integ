@@ -139,6 +139,7 @@ const Prospects = () => {
     const table = useMaterialReactTable({
         columns,
         data, //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+        initialState: { density: 'compact' },
     });
 
     return <MaterialReactTable table={table} />;
