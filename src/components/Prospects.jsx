@@ -3,6 +3,15 @@ import {
     MaterialReactTable,
     useMaterialReactTable,
 } from 'material-react-table';
+//Material UI Imports
+import {
+    Box,
+    Button,
+    ListItemIcon,
+    MenuItem,
+    Typography,
+    lighten,
+} from '@mui/material';
 
 const Prospects = () => {
     //data and fetching state
@@ -24,7 +33,7 @@ const Prospects = () => {
             }
 
             try {
-                const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=X2unxqubPsZ_P1Uf-0mQiQabN7ECidAlbqt1fI9_DU0mCeUMOJn6tuO7khiyB0uPTE66FKibU8cNeLf9qPLRw_PrMaaymIpim5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnKMC7Edu88AuGKQlZ0ymaRbuurM9-OBz3KzjnTr-81lKLk0lUhI-vX3ufCWg2OeiC1-_ywGnoBy-Cw3Oze4NxcDFp53-cReGLw&lib=M_31ekHVYmqw1T2hxFOgLx8Ti32_F69pn');
+                const response = await fetch(import.meta.env.VITE_API_BASE_URL);
                 const json = await response.json();
                 setData(json);
                 setRowCount(json.length);
@@ -45,44 +54,82 @@ const Prospects = () => {
         () => [
             {
                 header: 'Status',
-                accessorKey: 'status'
+                accessorKey: 'status',
+                size: 100,
+
+                //custom conditional format and styling
+                Cell: ({ cell }) => (
+                    <Box
+                        component="span"
+                        sx={(theme) => ({
+                            backgroundColor:
+                                cell.getValue() == 'Non-conforme'
+                                    ? theme.palette.error.dark
+                                    : cell.getValue() >= 50_000 && cell.getValue() < 75_000
+                                        ? theme.palette.warning.dark
+                                        : theme.palette.success.dark,
+                            borderRadius: '0.25rem',
+                            color: '#fff',
+                            maxWidth: '9ch',
+                            p: '0.25rem',
+                        })}
+                    >
+                        {cell.getValue()?.toLocaleString?.('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                        })}
+                    </Box>
+                ),
+
             },
             {
                 header: 'Name',
-                accessorKey: 'name'
+                accessorKey: 'name',
+                size: 100,
             },
             {
                 header: 'Tel',
-                accessorKey: 'tel'
+                accessorKey: 'tel',
+                enableClickToCopy: true,
+                size: 150,
             }
             ,
             {
                 header: 'City',
-                accessorKey: 'city'
+                accessorKey: 'city',
+                size: 100,
             },
             {
                 header: 'Age',
-                accessorKey: 'age'
+                accessorKey: 'age',
+                size: 100,
             },
             {
                 header: 'Degree/Experience',
-                accessorKey: 'degree-experience'
+                accessorKey: 'degree-experience',
+                size: 100,
             },
             {
                 header: 'Msg',
-                accessorKey: 'cv'
+                accessorKey: 'cv',
+                size: 300,
             },
             {
                 header: 'CV',
-                accessorKey: 'cv_link'
+                accessorKey: 'cv_link',
+                size: 300,
             },
             {
                 header: 'Type',
-                accessorKey: 'type'
+                accessorKey: 'type',
+                size: 100,
             },
             {
                 header: 'Owner',
-                accessorKey: 'owner'
+                accessorKey: 'owner',
+                size: 100,
             },
             //end
         ],
