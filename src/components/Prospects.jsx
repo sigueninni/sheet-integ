@@ -53,6 +53,11 @@ const Prospects = () => {
     const columns = useMemo(
         () => [
             {
+                header: 'Id',
+                accessorKey: 'Id',
+                size: 10,
+            },
+            {
                 header: 'Status',
                 accessorKey: 'status',
                 size: 100,
@@ -64,10 +69,20 @@ const Prospects = () => {
                         sx={(theme) => ({
                             backgroundColor:
                                 cell.getValue() == 'Non-conforme'
-                                    ? theme.palette.error.dark
-                                    : cell.getValue() >= 50_000 && cell.getValue() < 75_000
-                                        ? theme.palette.warning.dark
-                                        : theme.palette.success.dark,
+                                    ? 'red'
+                                    : cell.getValue() == 'immigration'
+                                        ? 'darkgray'
+                                        : cell.getValue() == 'Interessant'
+                                            ? '#11734b'
+                                            : cell.getValue() == 'à rappeler'
+                                                ? '#753800'
+                                                : cell.getValue() == 'Sans réponse'
+                                                    ? '#ffe5a0'
+                                                    : cell.getValue() == 'Pto'
+                                                        ? '#0a53a8'
+                                                        : cell.getValue() == 'Post'
+                                                            ? '#5a3286'
+                                                            : '#000',
                             borderRadius: '0.25rem',
                             color: '#fff',
                             maxWidth: '9ch',
